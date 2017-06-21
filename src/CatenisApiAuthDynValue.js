@@ -34,9 +34,14 @@ class CatenisApiAuthDynValue {
             scopeRequest = 'ctn1_request',
             timestampHdr = 'X-BCoT-Timestamp';
 
-        const now = moment();
-        const timestamp = moment.utc(now).format('YYYYMMDDTHHmmss[Z]');
-        const signDate = now.format('YYYYMMDD');
+        let timestamp = request.getHeaderByName(timestampHdr);
+        let tmstmp = moment(timestamp);
+
+        if (!tmstmp.isValid()) {
+            timestamp = moment.utc(now).format('YYYYMMDDTHHmmss[Z]');
+            tmstmp = moment(timestamp);
+        }
+        const signDate = tmstmp.format('YYYYMMDD');
 
         const urlHostAndPath = CatenisApiAuthDynValue.getUrlHostAndPath(request.url);
 

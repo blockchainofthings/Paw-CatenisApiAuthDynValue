@@ -1,6 +1,6 @@
 {
   "name": "CatenisApiAuthDynValue",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "src/CatenisApiAuthDynValue.js",
   "license": "MIT",
   "homepage": "https://github.com/blockchainofthings/Paw-CatenisApiAuthDynValue",
