@@ -38,10 +38,10 @@ class CatenisApiAuthDynValue {
         let tmstmp = moment(timestamp);
 
         if (!tmstmp.isValid()) {
-            timestamp = moment.utc(now).format('YYYYMMDDTHHmmss[Z]');
+            timestamp = moment.utc().format('YYYYMMDDTHHmmss[Z]');
             tmstmp = moment(timestamp);
         }
-        const signDate = tmstmp.format('YYYYMMDD');
+        const signDate = tmstmp.utc().format('YYYYMMDD');
 
         const urlHostAndPath = CatenisApiAuthDynValue.getUrlHostAndPath(request.url);
 
