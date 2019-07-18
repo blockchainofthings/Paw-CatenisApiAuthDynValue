@@ -53,13 +53,13 @@ class CatenisApiAuthDynValue {
         essentialHeaders += timestampHdr.toLowerCase() + ':' + request.getHeaderByName(timestampHdr) + '\n';
 
         confReq += essentialHeaders + '\n';
-        confReq += CatenisApiAuthDynValue.hashData(request.body) + '\n';
+        confReq += CatenisApiAuthDynValue.hashData(CatenisApiAuthDynValue.getRequestBody()) + '\n';
         // DEBUG - Begin
         console.log('Conformed request: ' + confReq);
         // DEBUG - End
 
         // Second step: assemble string to sign
-        let strToSign = signMethodId +'\n';
+        let strToSign = signMethodId + '\n';
         strToSign += timestamp + '\n';
 
         const scope = signDate + '/' + scopeRequest;
@@ -101,5 +101,14 @@ class CatenisApiAuthDynValue {
 
     static signData(data, secret, hexEncode = false) {
         return crypto.createHmac('sha256', secret).update(data).digest(hexEncode ? 'hex' : undefined);
+    }
+
+    // Method used to retrieve request body as a buffer (containing any binary data)
+    static getRequestBody() {
+        const dvBase64Enc = DynamicValue('com.luckymarmot.Base64EncodingDynamicValue');
+        dvBase64Enc.mode = 0;  // Encode
+        dvBase64Enc.input = DynamicString(DynamicValue('com.luckymarmot.RequestRawBodyDynamicValue'));
+
+        return Buffer.from(dvBase64Enc.getEvaluatedString(), 'base64');
     }
 }
