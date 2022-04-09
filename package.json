@@ -7,7 +7,7 @@
   "dependencies": {
     "@babel/runtime-corejs2": "^7.5.4",
     "immutable": "^3.8.2",
-    "moment": "^2.24.0"
+    "moment": "^2.29.2"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",
